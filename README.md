@@ -1,34 +1,29 @@
 # BiteCraft
-
 BiteCraft is a responsive restaurant ordering website for a fast-casual restaurant in Islamabad, Pakistan. It presents a local food menu and supports a simulated delivery or pickup order flow.
 
 ## Business overview
-
 - **Business:** BiteCraft, a fast-casual restaurant
 - **Location:** F-7 Markaz, Islamabad, Pakistan
 - **Target audience:** University students and young professionals
 - **Ordering methods:** Delivery and pickup
-- **Currency:** Pakistani rupees (PKR)
+- **Currency:** PKR
 
 ### Business objectives
-
 - Make it quick to find meals by category, name, or ingredient.
 - Show clear product descriptions, prices, portion sizes, and availability.
 - Provide a responsive ordering experience for mobile and desktop customers.
 - Explain delivery pricing before an order is submitted.
 
 ## Technologies
-
 - React and JavaScript
 - Vite
 - React Router DOM
 - React Context API
 - Standard CSS
-- `localStorage` for cart persistence
-- Node.js built-in `node:test` and `node:assert/strict` for tests
+- localStorage for cart persistence
+- Node.js built-in node:test and node:assert/strict for tests
 
 The application uses local restaurant data. It has no backend, external menu API, or payment gateway.
-
 ## Main features
 
 - Home page with restaurant information, food categories, popular items, and a location link.
