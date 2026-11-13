@@ -4,26 +4,30 @@ import foods from '../data/foods.js'
 import restaurant from '../data/restaurant.js'
 
 function Home() {
+  const categories = restaurant.categories.map((category) => ({
+    name: category,
+    food: foods.find((item) => item.category === category),
+  }))
+
   return (
     <div className="home-page">
       <section className="home-hero page-container">
         <div className="hero-copy">
           <span className="eyebrow">
             <span className="eyebrow-dot" />
-            Freshly made in Islamabad
+            {restaurant.type} · {restaurant.location}
           </span>
           <h1>
-            Big flavour for
-            <br />
-            <span>your kind of day.</span>
+            <span className="hero-brand-name">{restaurant.name}</span>
+            <span className="hero-tagline">{restaurant.tagline}</span>
           </h1>
           <p>
-            From campus breaks to late work nights, find your next favourite bite
-            at {restaurant.name}.
+            Fresh burgers, stone-baked pizzas, wraps, and more—made for students
+            and busy days around Islamabad.
           </p>
           <div className="hero-actions">
             <Link className="button button-primary" to="/menu">
-              Explore the menu <span aria-hidden="true">↗</span>
+              Order Now <span aria-hidden="true">↗</span>
             </Link>
             <span className="hero-note">Made fresh. Always satisfying.</span>
           </div>
@@ -62,13 +66,71 @@ function Home() {
               <h2 id="popular-heading">Crowd-pleasers worth the craving.</h2>
             </div>
             <Link className="text-link" to="/menu">
-              Explore all categories <span aria-hidden="true">→</span>
+              View Full Menu <span aria-hidden="true">→</span>
             </Link>
           </div>
           <div className="food-grid">
             {foods.filter((food) => food.featured).map((food) => (
               <FoodCard food={food} key={food.id} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="category-heading" className="category-section page-container">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow"><span className="eyebrow-dot" />Find your favourite</span>
+            <h2 id="category-heading">A little something for every craving.</h2>
+          </div>
+          <p>Pick a category and we’ll take you straight to the good stuff.</p>
+        </div>
+        <div className="category-grid">
+          {categories.map(({ name, food }) => (
+            <Link
+              aria-label={`Browse ${name}`}
+              className="category-card"
+              key={name}
+              to={`/menu?category=${encodeURIComponent(name)}`}
+            >
+              <img alt={food.imageAlt} decoding="async" loading="lazy" src={food.image} />
+              <span className="category-card-shade" />
+              <span className="category-card-copy">
+                <span>Explore</span>
+                <strong>{name}</strong>
+              </span>
+              <span aria-hidden="true" className="category-card-arrow">↗</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="restaurant-info-heading" className="restaurant-info">
+        <div className="page-container restaurant-info-inner">
+          <div className="restaurant-info-copy">
+            <span className="eyebrow"><span className="eyebrow-dot" />Good food, right around the corner</span>
+            <h2 id="restaurant-info-heading">Made fresh for Islamabad.</h2>
+            <p>
+              BiteCraft is a fast-casual neighbourhood spot for quick lunches,
+              study breaks, and easy dinners. Order ahead for pickup or get your
+              favourites delivered.
+            </p>
+          </div>
+          <div className="restaurant-info-cards">
+            <article className="restaurant-info-card">
+              <span className="info-card-label">OUR AREA</span>
+              <h3>{restaurant.operatingArea}</h3>
+              <p>Pickup point: {restaurant.fallbackAddress}</p>
+              <a href={restaurant.mapUrl} rel="noreferrer" target="_blank">
+                Get directions <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+            <article className="restaurant-info-card">
+              <span className="info-card-label">ORDER YOUR WAY</span>
+              <h3>{restaurant.orderingMethods.join(' or ')}</h3>
+              <p>Freshly prepared, with clear prices in {restaurant.currency}.</p>
+              <Link to="/menu">Start an order <span aria-hidden="true">→</span></Link>
+            </article>
           </div>
         </div>
       </section>
