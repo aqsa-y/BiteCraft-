@@ -1,3 +1,9 @@
+import { validateOrderEligibility } from './businessRules.js'
+
+export function createOrderReference() {
+  return `BC-${Date.now().toString(36).toUpperCase()}`
+}
+
 function isValidPakistaniMobile(phone) {
   const digits = phone.replace(/\D/g, '')
   const nationalNumber = digits.startsWith('0092')
@@ -20,13 +26,5 @@ export function validateCheckout(values) {
     errors.phone = 'Enter a valid Pakistani mobile number, such as 0300 1234567.'
   }
 
-  if (!['Delivery', 'Pickup'].includes(values.orderType)) {
-    errors.orderType = 'Choose delivery or pickup.'
-  }
-
-  if (values.orderType === 'Delivery' && !values.address.trim()) {
-    errors.address = 'Enter a delivery address.'
-  }
-
-  return errors
+  return { ...errors, ...validateOrderEligibility(values) }
 }

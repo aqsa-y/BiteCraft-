@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { validateCheckout } from './checkout.js'
+import { createOrderReference, validateCheckout } from './checkout.js'
 
 const validDelivery = {
   name: 'Samira Khan',
@@ -9,6 +9,10 @@ const validDelivery = {
   address: 'F-7 Markaz, Islamabad',
   notes: '',
 }
+
+test('order references have the BiteCraft format', () => {
+  assert.match(createOrderReference(), /^BC-[A-Z0-9]+$/)
+})
 
 test('checkout accepts common Pakistani mobile number formats', () => {
   for (const phone of ['03001234567', '0300 1234567', '+92 300 1234567', '0092-300-1234567']) {

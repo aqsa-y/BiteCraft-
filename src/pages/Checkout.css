@@ -105,6 +105,19 @@
   cursor: pointer;
 }
 
+.checkout-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.checkout-availability-error {
+  margin-top: 12px;
+}
+
+.checkout-availability-error a {
+  color: var(--color-primary);
+}
+
 .checkout-payment-note {
   margin: 12px 0 0;
   color: var(--color-muted);
@@ -150,6 +163,12 @@
   white-space: nowrap;
 }
 
+.summary-unavailable {
+  color: #a83227;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
 .checkout-totals {
   margin: 21px 0 0;
   padding-top: 16px;
@@ -178,6 +197,13 @@
   color: var(--color-ink);
   font-size: 1rem;
   font-weight: 800;
+}
+
+.delivery-rule-note {
+  margin: 17px 0 0;
+  color: var(--color-muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
 }
 
 .checkout-confirmation {

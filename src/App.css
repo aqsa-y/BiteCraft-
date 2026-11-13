@@ -893,6 +893,11 @@
   font-size: 0.82rem;
 }
 
+.cart-item-copy .cart-item-unavailable {
+  color: #a83227;
+  font-weight: 700;
+}
+
 .cart-item-quantity {
   width: fit-content;
   margin-top: 10px;
@@ -968,11 +973,22 @@
   font-size: 0.9rem;
 }
 
+.cart-summary > p:not(.cart-summary-note) {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 0.9rem;
+}
+
 .cart-summary-note {
   margin: 14px 0 20px;
   color: var(--color-muted);
   font-size: 0.78rem;
   line-height: 1.6;
+}
+
+.cart-summary-note + .cart-summary-note {
+  margin-top: -8px;
 }
 
 .cart-summary .button {

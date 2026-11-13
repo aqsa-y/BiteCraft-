@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import CartItem from '../components/CartItem.jsx'
 import { useCart } from '../context/useCart.js'
 import foods from '../data/foods.js'
+import { calculateOrderTotals } from '../utils/businessRules.js'
 
 function Cart() {
   const { items } = useCart()
@@ -9,7 +10,11 @@ function Cart() {
     const food = foods.find((candidate) => candidate.id === item.id)
     return food ? [{ ...item, food }] : []
   })
-  const subtotal = cartItems.reduce((total, item) => total + item.food.price * item.quantity, 0)
+  const subtotal = cartItems.reduce(
+    (total, item) => total + (item.food.available ? item.food.price * item.quantity : 0),
+    0,
+  )
+  const estimatedTotals = calculateOrderTotals(subtotal, 'Delivery')
 
   return (
     <section className="page-container simple-page">
@@ -33,7 +38,18 @@ function Cart() {
           <aside aria-label="Order summary" className="cart-summary">
             <h2>Order summary</h2>
             <p><span>Subtotal</span><strong>PKR {subtotal.toLocaleString('en-PK')}</strong></p>
+            <p>
+              <span>Delivery fee estimate</span>
+              <strong>
+                {estimatedTotals.deliveryFee
+                  ? `PKR ${estimatedTotals.deliveryFee.toLocaleString('en-PK')}`
+                  : 'Free'}
+              </strong>
+            </p>
             <p className="cart-summary-note">Delivery fees, if applicable, are confirmed at checkout.</p>
+            <p className="cart-summary-note">
+              Free delivery on orders of Rs. 2,000 or more. Orders below Rs. 2,000 cost Rs. 150; pickup is free.
+            </p>
             <Link className="button button-primary" to="/checkout">Continue to checkout</Link>
           </aside>
         </div>

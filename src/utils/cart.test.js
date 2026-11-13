@@ -58,6 +58,6 @@ test('stored cart data is sanitized and duplicate valid lines are consolidated',
   ))
   assert.deepEqual(
     normalizeCartItems([{ id: food.id, quantity: 1 }], unavailableFoods),
-    [],
+    [{ id: food.id, quantity: 1 }],
   )
 })

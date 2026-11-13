@@ -1,5 +1,7 @@
+import { isFoodAvailable } from './businessRules.js'
+
 export function addFoodToCart(items, food, quantity) {
-  if (!food || !food.available) {
+  if (!isFoodAvailable(food)) {
     throw new Error('This food is unavailable and cannot be added to the cart.')
   }
 
@@ -53,7 +55,7 @@ export function normalizeCartItems(items, foods) {
     }
 
     const food = foods.find((candidate) => candidate.id === item.id)
-    if (!food?.available) {
+    if (!food) {
       return validItems
     }
 

@@ -9,7 +9,11 @@ function CartItem({ food, quantity }) {
       <div className="cart-item-copy">
         <span>{food.category}</span>
         <h2>{food.name}</h2>
-        <p>PKR {food.price.toLocaleString('en-PK')} each</p>
+        {food.available ? (
+          <p>PKR {food.price.toLocaleString('en-PK')} each</p>
+        ) : (
+          <p className="cart-item-unavailable">Unavailable — remove to continue</p>
+        )}
         <div aria-label={`${food.name} quantity`} className="cart-item-quantity">
           <button
             aria-label={`Decrease ${food.name} quantity`}
@@ -22,7 +26,7 @@ function CartItem({ food, quantity }) {
           <span aria-live="polite">{quantity}</span>
           <button
             aria-label={`Increase ${food.name} quantity`}
-            disabled={quantity >= Number.MAX_SAFE_INTEGER}
+            disabled={!food.available || quantity >= Number.MAX_SAFE_INTEGER}
             onClick={() => increaseQuantity(food.id)}
             type="button"
           >
@@ -30,7 +34,9 @@ function CartItem({ food, quantity }) {
           </button>
         </div>
       </div>
-      <strong>PKR {(food.price * quantity).toLocaleString('en-PK')}</strong>
+      <strong>
+        {food.available ? `PKR ${(food.price * quantity).toLocaleString('en-PK')}` : 'Unavailable'}
+      </strong>
       <button
         aria-label={`Remove ${food.name} from cart`}
         className="cart-remove"

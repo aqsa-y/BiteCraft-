@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import foods from '../data/foods.js'
+import { isFoodAvailable } from '../utils/businessRules.js'
 import { addFoodToCart, changeCartQuantity, normalizeCartItems } from '../utils/cart.js'
 import CartContext from './CartContextValue.js'
 
@@ -41,7 +42,7 @@ export function CartProvider({ children }) {
 
   function addToCart(food, quantity) {
     const catalogFood = foods.find((item) => item.id === food?.id)
-    if (!catalogFood || !catalogFood.available) {
+    if (!isFoodAvailable(catalogFood)) {
       throw new Error('This food is unavailable and cannot be added to the cart.')
     }
 
@@ -58,7 +59,7 @@ export function CartProvider({ children }) {
 
   function increaseQuantity(foodId) {
     const food = foods.find((item) => item.id === foodId)
-    if (!food?.available) {
+    if (!isFoodAvailable(food)) {
       throw new Error('This food is unavailable and cannot be added to the cart.')
     }
 

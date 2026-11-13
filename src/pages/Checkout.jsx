@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom'
 import OrderSummary from '../components/OrderSummary.jsx'
 import { useCart } from '../context/useCart.js'
 import foods from '../data/foods.js'
-import restaurant from '../data/restaurant.js'
-import { validateCheckout } from '../utils/checkout.js'
+import {
+  calculateOrderTotals,
+  getUnavailableCartItems,
+  validateOrderCart,
+} from '../utils/businessRules.js'
+import { createOrderReference, validateCheckout } from '../utils/checkout.js'
 import './Checkout.css'
 
 const initialForm = {
   name: '',
   phone: '',
-  orderType: 'Delivery',
+  orderType: '',
   address: '',
   notes: '',
 }
@@ -20,15 +24,21 @@ function Checkout() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [confirmation, setConfirmation] = useState(null)
+  const unavailableItems = getUnavailableCartItems(items, foods)
   const orderItems = items.flatMap((item) => {
     const food = foods.find((candidate) => candidate.id === item.id)
     return food
-      ? [{ food, quantity: item.quantity, total: food.price * item.quantity }]
+      ? [{
+          food,
+          quantity: item.quantity,
+          total: food.available ? food.price * item.quantity : 0,
+        }]
       : []
   })
   const subtotal = orderItems.reduce((sum, item) => sum + item.total, 0)
-  const deliveryFee = form.orderType === 'Delivery' ? restaurant.deliveryFee : 0
-  const total = subtotal + deliveryFee
+  const { deliveryFee, total } = form.orderType
+    ? calculateOrderTotals(subtotal, form.orderType)
+    : { subtotal, deliveryFee: null, total: null }
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -45,16 +55,18 @@ function Checkout() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    const nextErrors = validateCheckout(form)
+    const nextErrors = {
+      ...validateCheckout(form),
+      ...validateOrderCart(items, foods),
+    }
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length > 0 || orderItems.length === 0) {
+    if (Object.keys(nextErrors).length > 0) {
       return
     }
 
-    const orderReference = `BC-${Date.now().toString(36).toUpperCase()}`
     setConfirmation({
-      orderReference,
+      orderReference: createOrderReference(),
       orderType: form.orderType,
       total,
     })
@@ -147,6 +159,7 @@ function Checkout() {
               aria-invalid={Boolean(errors.orderType)}
               value={form.orderType}
             >
+              <option value="">Choose delivery or pickup</option>
               <option value="Delivery">Delivery</option>
               <option value="Pickup">Pickup</option>
             </select>
@@ -179,9 +192,21 @@ function Checkout() {
               value={form.notes}
             />
           </div>
-          <button className="button button-primary checkout-submit" type="submit">
-            Place order · PKR {total.toLocaleString('en-PK')}
+          <button
+            className="button button-primary checkout-submit"
+            disabled={unavailableItems.length > 0}
+            type="submit"
+          >
+            {total === null
+              ? 'Select order type to see total'
+              : `Place order · PKR ${total.toLocaleString('en-PK')}`}
           </button>
+          {unavailableItems.length > 0 && (
+            <p className="checkout-error checkout-availability-error" role="alert">
+              {errors.availability || 'Remove unavailable items from your cart before placing your order.'}{' '}
+              <Link to="/cart">Review your cart</Link>
+            </p>
+          )}
           <p className="checkout-payment-note">No online payment is taken here. Payment details can be confirmed when your order is arranged.</p>
         </form>
         <OrderSummary
