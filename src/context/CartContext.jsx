@@ -52,6 +52,10 @@ export function CartProvider({ children }) {
     setItems((currentItems) => currentItems.filter((item) => item.id !== foodId))
   }
 
+  function clearCart() {
+    setItems([])
+  }
+
   function increaseQuantity(foodId) {
     const food = foods.find((item) => item.id === foodId)
     if (!food?.available) {
@@ -69,7 +73,15 @@ export function CartProvider({ children }) {
 
   return (
     <CartContext.Provider
-      value={{ items, itemCount, addToCart, increaseQuantity, decreaseQuantity, removeFromCart }}
+      value={{
+        items,
+        itemCount,
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        removeFromCart,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
