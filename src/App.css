@@ -466,6 +466,69 @@
   line-height: 1.06;
 }
 
+.menu-load-state {
+  max-width: 620px;
+  min-height: 220px;
+  margin-top: 30px;
+  padding: 34px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 17px;
+  background: white;
+}
+
+.menu-load-state.is-error {
+  border-color: #f0d7d2;
+  background: #fffaf8;
+}
+
+.menu-load-state h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: -0.04em;
+}
+
+.menu-load-state p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.menu-load-state .button {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.menu-load-state .menu-test-hint {
+  margin-top: 5px;
+  font-size: 0.76rem;
+}
+
+.menu-test-hint code {
+  color: var(--color-ink);
+}
+
+.menu-loading-spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #f1dfd7;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: menu-loading-spin 750ms linear infinite;
+}
+
+@keyframes menu-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .menu-controls {
   margin-top: 30px;
   display: grid;
@@ -1219,5 +1282,6 @@
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation: none !important;
   }
 }

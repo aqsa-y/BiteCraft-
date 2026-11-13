@@ -1,28 +1,130 @@
+import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { useState } from 'react'
 import FoodCard from '../components/FoodCard.jsx'
-import foods from '../data/foods.js'
 import restaurant from '../data/restaurant.js'
+import { loadFoods } from '../utils/loadFoods.js'
 import { getMenuFoods } from '../utils/menuFilters.js'
 
 function Menu() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [loadResult, setLoadResult] = useState(null)
+  const [retryCount, setRetryCount] = useState(0)
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState('')
+  const simulateFailure = searchParams.get('simulateFailure') === '1'
+  const emptyMenu = searchParams.get('emptyMenu') === '1'
+  const requestKey = `${simulateFailure}-${emptyMenu}-${retryCount}`
+  const currentLoadResult = loadResult?.requestKey === requestKey ? loadResult : null
+  const loadState = currentLoadResult?.state || 'loading'
+  const loadError = currentLoadResult?.error || ''
+  const menuFoods = currentLoadResult?.foods || []
   const requestedCategory = searchParams.get('category')
   const selectedCategory = restaurant.categories.find(
     (category) => category.toLowerCase() === requestedCategory?.toLowerCase(),
   ) || ''
-  const visibleFoods = getMenuFoods(foods, { search, category: selectedCategory, sort })
+  const visibleFoods = getMenuFoods(menuFoods, { search, category: selectedCategory, sort })
+
+  useEffect(() => {
+    let active = true
+
+    loadFoods({ shouldFail: simulateFailure, empty: emptyMenu })
+      .then((loadedFoods) => {
+        if (!active) {
+          return
+        }
+
+        setLoadResult({
+          requestKey,
+          state: loadedFoods.length === 0 ? 'empty' : 'ready',
+          foods: loadedFoods,
+          error: '',
+        })
+      })
+      .catch((error) => {
+        if (!active) {
+          return
+        }
+
+        setLoadResult({
+          requestKey,
+          state: 'error',
+          foods: [],
+          error: error.message,
+        })
+      })
+
+    return () => {
+      active = false
+    }
+  }, [simulateFailure, emptyMenu, requestKey])
 
   function toggleCategory(category) {
     setSearchParams(!category || selectedCategory === category ? {} : { category })
+  }
+
+  function retryLoading() {
+    const nextParams = new URLSearchParams(searchParams)
+    nextParams.delete('simulateFailure')
+    nextParams.delete('emptyMenu')
+    setSearchParams(nextParams, { replace: true })
+    setRetryCount((count) => count + 1)
   }
 
   function resetMenu() {
     setSearch('')
     setSort('')
     setSearchParams({})
+  }
+
+  if (loadState === 'loading') {
+    return (
+      <section aria-busy="true" aria-live="polite" className="page-container menu-page">
+        <span className="eyebrow"><span className="eyebrow-dot" />The good stuff</span>
+        <h1 id="menu-heading">Our menu</h1>
+        <div className="menu-load-state">
+          <span aria-hidden="true" className="menu-loading-spinner" />
+          <p>Loading BiteCraft favourites…</p>
+        </div>
+      </section>
+    )
+  }
+
+  if (loadState === 'error') {
+    return (
+      <section aria-labelledby="menu-heading" className="page-container menu-page">
+        <span className="eyebrow"><span className="eyebrow-dot" />The good stuff</span>
+        <h1 id="menu-heading">Our menu</h1>
+        <div className="menu-load-state is-error" role="alert">
+          <h2>We couldn’t load the menu.</h2>
+          <p>{loadError} Please try again.</p>
+          <button className="button button-primary" onClick={retryLoading} type="button">
+            Retry loading menu
+          </button>
+          <p className="menu-test-hint">
+            To demonstrate this state again, open <code>/menu?simulateFailure=1</code>.
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  if (loadState === 'empty') {
+    return (
+      <section aria-labelledby="menu-heading" className="page-container menu-page">
+        <span className="eyebrow"><span className="eyebrow-dot" />The good stuff</span>
+        <h1 id="menu-heading">Our menu</h1>
+        <div className="menu-load-state">
+          <h2>There are no menu items right now.</h2>
+          <p>Please check back in a moment.</p>
+          <button className="button button-primary" onClick={retryLoading} type="button">
+            Reload menu
+          </button>
+          <p className="menu-test-hint">
+            To demonstrate this state again, open <code>/menu?emptyMenu=1</code>.
+          </p>
+        </div>
+      </section>
+    )
   }
 
   return (
