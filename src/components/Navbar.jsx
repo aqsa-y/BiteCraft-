@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useCart } from '../context/useCart.js'
 import './Navbar.css'
@@ -6,10 +6,27 @@ import './Navbar.css'
 function Navbar() {
   const { itemCount } = useCart()
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuToggleRef = useRef(null)
 
   function closeMenu() {
     setMenuOpen(false)
   }
+
+  useEffect(() => {
+    if (!menuOpen) {
+      return undefined
+    }
+
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        menuToggleRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [menuOpen])
 
   return (
     <header className="site-header">
@@ -27,6 +44,7 @@ function Navbar() {
           aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           className={`menu-toggle${menuOpen ? ' is-open' : ''}`}
           onClick={() => setMenuOpen((isOpen) => !isOpen)}
+          ref={menuToggleRef}
           type="button"
         >
           <span />
@@ -49,7 +67,9 @@ function Navbar() {
             Food details
           </NavLink>
           <NavLink
-            aria-label={itemCount ? `Cart, ${itemCount} items` : 'Cart'}
+            aria-label={itemCount
+              ? `Cart, ${itemCount} ${itemCount === 1 ? 'item' : 'items'}`
+              : 'Cart'}
             className="cart-link"
             onClick={closeMenu}
             to="/cart"

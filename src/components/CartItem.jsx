@@ -14,7 +14,7 @@ function CartItem({ food, quantity }) {
         ) : (
           <p className="cart-item-unavailable">Unavailable — remove to continue</p>
         )}
-        <div aria-label={`${food.name} quantity`} className="cart-item-quantity">
+        <div aria-label={`${food.name} quantity`} className="cart-item-quantity" role="group">
           <button
             aria-label={`Decrease ${food.name} quantity`}
             disabled={quantity <= 1}

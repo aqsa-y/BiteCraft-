@@ -11,7 +11,7 @@
   --color-surface: #ffffff;
   --color-ink: #25231f;
   --color-muted: #77736b;
-  --color-primary: #cb4e32;
+  --color-primary: #be452d;
   --color-primary-dark: #a83b25;
   --color-accent: #edb84c;
   --color-border: #eee9df;
@@ -47,8 +47,11 @@ select {
 }
 
 button:focus-visible,
-a:focus-visible {
-  outline: 3px solid rgb(203 78 50 / 38%);
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-primary);
   outline-offset: 3px;
 }
 

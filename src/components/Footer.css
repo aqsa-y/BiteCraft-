@@ -51,9 +51,20 @@
   text-decoration: none;
 }
 
+.footer-navigation a,
+.footer-details a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
 .footer-navigation a:hover,
 .footer-details a:hover {
   color: white;
+}
+
+.site-footer a:focus-visible {
+  outline-color: var(--color-accent);
 }
 
 .footer-details {

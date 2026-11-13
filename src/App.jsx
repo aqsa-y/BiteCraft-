@@ -12,8 +12,9 @@ import './App.css'
 function App() {
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar />
-      <main className="main-content">
+      <main className="main-content" id="main-content" tabIndex="-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />

@@ -31,11 +31,11 @@ function Home() {
             </Link>
             <span className="hero-note">Made fresh. Always satisfying.</span>
           </div>
-          <div className="hero-services" aria-label="Ways to order">
-            <span>Delivery</span>
-            <span>Pickup</span>
-            <span>Prices in PKR</span>
-          </div>
+          <ul aria-label="Ways to order" className="hero-services">
+            <li>Delivery</li>
+            <li>Pickup</li>
+            <li>Prices in PKR</li>
+          </ul>
         </div>
         <div className="hero-art">
           <img

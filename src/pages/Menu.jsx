@@ -94,9 +94,9 @@ function Menu() {
       <section aria-labelledby="menu-heading" className="page-container menu-page">
         <span className="eyebrow"><span className="eyebrow-dot" />The good stuff</span>
         <h1 id="menu-heading">Our menu</h1>
-        <div className="menu-load-state is-error" role="alert">
+        <div className="menu-load-state is-error">
           <h2>We couldn’t load the menu.</h2>
-          <p>{loadError} Please try again.</p>
+          <p role="alert">{loadError} Please try again.</p>
           <button className="button button-primary" onClick={retryLoading} type="button">
             Retry loading menu
           </button>
@@ -115,7 +115,7 @@ function Menu() {
         <h1 id="menu-heading">Our menu</h1>
         <div className="menu-load-state">
           <h2>There are no menu items right now.</h2>
-          <p>Please check back in a moment.</p>
+          <p role="status">Please check back in a moment.</p>
           <button className="button button-primary" onClick={retryLoading} type="button">
             Reload menu
           </button>
@@ -156,7 +156,7 @@ function Menu() {
           </select>
         </label>
       </div>
-      <div className="category-list" aria-label="Filter menu by category">
+      <div className="category-list" aria-label="Filter menu by category" role="group">
         {['All', ...restaurant.categories].map((category, index) => (
           <button
             aria-pressed={category === 'All' ? !selectedCategory : selectedCategory === category}

@@ -69,6 +69,9 @@ function FoodDetails() {
                   setQuantity(event.target.value)
                   setAddedToCart(false)
                 }}
+                aria-describedby={quantityIsValid ? undefined : 'food-quantity-error'}
+                aria-invalid={!quantityIsValid}
+                required
                 step="1"
                 type="number"
                 value={quantity}
@@ -81,6 +84,11 @@ function FoodDetails() {
                 Add to Cart
               </button>
             </form>
+            {!quantityIsValid && (
+              <p className="food-quantity-error" id="food-quantity-error" role="alert">
+                Enter a whole-number quantity greater than zero.
+              </p>
+            )}
             {addedToCart && (
               <p className="food-added-message" role="status">
                 Added to your cart. <Link to="/cart">View cart</Link>

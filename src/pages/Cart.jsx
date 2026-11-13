@@ -29,12 +29,12 @@ function Cart() {
         </div>
       ) : (
         <div className="cart-layout">
-          <div aria-label="Items in your cart" className="cart-items">
+          <section aria-label="Items in your cart" className="cart-items">
             {cartItems.map((item) => (
               <CartItem food={item.food} key={item.id} quantity={item.quantity} />
             ))}
             <Link className="text-link" to="/menu">Continue shopping <span aria-hidden="true">→</span></Link>
-          </div>
+          </section>
           <aside aria-label="Order summary" className="cart-summary">
             <h2>Order summary</h2>
             <p><span>Subtotal</span><strong>PKR {subtotal.toLocaleString('en-PK')}</strong></p>
