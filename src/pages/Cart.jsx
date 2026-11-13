@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
+import CartItem from '../components/CartItem.jsx'
 import { useCart } from '../context/useCart.js'
 import foods from '../data/foods.js'
 
 function Cart() {
-  const { items, removeFromCart } = useCart()
+  const { items } = useCart()
   const cartItems = items.flatMap((item) => {
     const food = foods.find((candidate) => candidate.id === item.id)
     return food ? [{ ...item, food }] : []
@@ -25,23 +26,7 @@ function Cart() {
         <div className="cart-layout">
           <div aria-label="Items in your cart" className="cart-items">
             {cartItems.map((item) => (
-              <article className="cart-item" key={item.id}>
-                <img alt={item.food.imageAlt} src={item.food.image} />
-                <div className="cart-item-copy">
-                  <span>{item.food.category}</span>
-                  <h2>{item.food.name}</h2>
-                  <p>PKR {item.food.price.toLocaleString('en-PK')} × {item.quantity}</p>
-                </div>
-                <strong>PKR {(item.food.price * item.quantity).toLocaleString('en-PK')}</strong>
-                <button
-                  aria-label={`Remove ${item.food.name} from cart`}
-                  className="cart-remove"
-                  onClick={() => removeFromCart(item.id)}
-                  type="button"
-                >
-                  Remove
-                </button>
-              </article>
+              <CartItem food={item.food} key={item.id} quantity={item.quantity} />
             ))}
             <Link className="text-link" to="/menu">Continue shopping <span aria-hidden="true">→</span></Link>
           </div>

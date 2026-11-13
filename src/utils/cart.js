@@ -24,3 +24,53 @@ export function addFoodToCart(items, food, quantity) {
 
   return [...items, { id: food.id, quantity }]
 }
+
+export function changeCartQuantity(items, foodId, change) {
+  if (change !== 1 && change !== -1) {
+    throw new RangeError('Cart quantity can only change by one item.')
+  }
+
+  return items.map((item) => {
+    if (item.id !== foodId) {
+      return item
+    }
+
+    const quantity = item.quantity + change
+    return Number.isSafeInteger(quantity) && quantity > 0
+      ? { ...item, quantity }
+      : item
+  })
+}
+
+export function normalizeCartItems(items, foods) {
+  if (!Array.isArray(items)) {
+    return []
+  }
+
+  return items.reduce((validItems, item) => {
+    if (!item || typeof item.id !== 'string' || !Number.isSafeInteger(item.quantity) || item.quantity < 1) {
+      return validItems
+    }
+
+    const food = foods.find((candidate) => candidate.id === item.id)
+    if (!food?.available) {
+      return validItems
+    }
+
+    const existingItem = validItems.find((cartItem) => cartItem.id === food.id)
+    if (!existingItem) {
+      return [...validItems, { id: food.id, quantity: item.quantity }]
+    }
+
+    const combinedQuantity = existingItem.quantity + item.quantity
+    if (!Number.isSafeInteger(combinedQuantity)) {
+      return validItems
+    }
+
+    return validItems.map((cartItem) => (
+      cartItem.id === food.id
+        ? { ...cartItem, quantity: combinedQuantity }
+        : cartItem
+    ))
+  }, [])
+}

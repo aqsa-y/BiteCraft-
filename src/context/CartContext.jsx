@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import foods from '../data/foods.js'
-import { addFoodToCart } from '../utils/cart.js'
+import { addFoodToCart, changeCartQuantity, normalizeCartItems } from '../utils/cart.js'
 import CartContext from './CartContextValue.js'
 
 const CART_STORAGE_KEY = 'bitecraft-cart'
@@ -11,19 +11,25 @@ function readCart() {
     return []
   }
 
-  const items = JSON.parse(storedCart)
-  if (!Array.isArray(items)) {
-    throw new Error('Saved BiteCraft cart data must be an array.')
-  }
-
-  return items.filter((item) => {
-    if (!item || typeof item.id !== 'string') {
-      return false
+  let items
+  try {
+    items = JSON.parse(storedCart)
+  } catch (error) {
+    if (!(error instanceof SyntaxError)) {
+      throw error
     }
 
-    const food = foods.find((candidate) => candidate.id === item.id)
-    return food?.available && Number.isSafeInteger(item.quantity) && item.quantity > 0
-  })
+    console.error('Saved BiteCraft cart data is invalid JSON and was cleared.', error)
+    localStorage.removeItem(CART_STORAGE_KEY)
+    return []
+  }
+
+  const normalizedItems = normalizeCartItems(items, foods)
+  if (!Array.isArray(items) || normalizedItems.length !== items.length) {
+    console.warn('Invalid or duplicate BiteCraft cart items were removed or consolidated.')
+  }
+
+  return normalizedItems
 }
 
 export function CartProvider({ children }) {
@@ -46,10 +52,25 @@ export function CartProvider({ children }) {
     setItems((currentItems) => currentItems.filter((item) => item.id !== foodId))
   }
 
+  function increaseQuantity(foodId) {
+    const food = foods.find((item) => item.id === foodId)
+    if (!food?.available) {
+      throw new Error('This food is unavailable and cannot be added to the cart.')
+    }
+
+    setItems((currentItems) => changeCartQuantity(currentItems, foodId, 1))
+  }
+
+  function decreaseQuantity(foodId) {
+    setItems((currentItems) => changeCartQuantity(currentItems, foodId, -1))
+  }
+
   const itemCount = items.reduce((total, item) => total + item.quantity, 0)
 
   return (
-    <CartContext.Provider value={{ items, itemCount, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ items, itemCount, addToCart, increaseQuantity, decreaseQuantity, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   )
