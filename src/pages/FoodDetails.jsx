@@ -1,7 +1,47 @@
 import { Link, useParams } from 'react-router-dom'
+import featuredFoods from '../data/featuredFoods.js'
 
 function FoodDetails() {
   const { foodId } = useParams()
+  const food = featuredFoods.find((item) => item.id === foodId)
+
+  if (foodId && !food) {
+    return (
+      <section className="page-container simple-page">
+        <span className="eyebrow"><span className="eyebrow-dot" />Not on today’s menu</span>
+        <h1>We couldn’t find that dish.</h1>
+        <p className="page-lead">Try another BiteCraft favourite from the menu.</p>
+        <Link className="button button-primary" to="/menu">Browse the menu</Link>
+      </section>
+    )
+  }
+
+  if (food) {
+    return (
+      <section className="page-container food-detail-page">
+        <Link className="text-link" to="/menu">
+          <span aria-hidden="true">←</span> Back to the menu
+        </Link>
+        <div className="food-detail">
+          <div className="food-detail-image">
+            <img
+              alt={food.imageAlt}
+              decoding="async"
+              height="750"
+              src={food.image}
+              width="1000"
+            />
+          </div>
+          <div className="food-detail-copy">
+            <span className="eyebrow"><span className="eyebrow-dot" />{food.category}</span>
+            <h1>{food.name}</h1>
+            <p>{food.description}</p>
+            <strong>PKR {food.price.toLocaleString('en-PK')}</strong>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="page-container simple-page">

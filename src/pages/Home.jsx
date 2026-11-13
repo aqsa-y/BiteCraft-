@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import featuredFoods from '../data/featuredFoods.js'
 import restaurant from '../data/restaurant.js'
 
 function Home() {
@@ -31,28 +32,61 @@ function Home() {
             <span>Prices in PKR</span>
           </div>
         </div>
-        <div className="hero-art" aria-label="Illustration of a BiteCraft burger" role="img">
-          <div className="art-sun" />
+        <div className="hero-art">
+          <img
+            alt="Double cheeseburger layered with melted cheese, tomato, and crisp lettuce"
+            className="hero-image"
+            decoding="async"
+            height="900"
+            src="/images/hero-burger.jpg"
+            width="1200"
+          />
+          <div aria-hidden="true" className="hero-image-shade" />
           <div className="art-caption">
             <span>CRAFTED WITH CRAVINGS IN MIND</span>
             <strong>Good food. No fuss.</strong>
           </div>
-          <div className="burger-illustration">
-            <span className="burger-top">
-              <i className="sesame sesame-one" />
-              <i className="sesame sesame-two" />
-              <i className="sesame sesame-three" />
-              <i className="sesame sesame-four" />
-              <i className="sesame sesame-five" />
-            </span>
-            <span className="burger-lettuce" />
-            <span className="burger-cheese" />
-            <span className="burger-patty" />
-            <span className="burger-bottom" />
-          </div>
           <div className="art-sticker">
             <span>FRESH</span>
             <strong>& tasty</strong>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="popular-heading" className="popular-section">
+        <div className="page-container">
+          <div className="popular-heading">
+            <div>
+              <span className="eyebrow"><span className="eyebrow-dot" />A few local favourites</span>
+              <h2 id="popular-heading">Crowd-pleasers worth the craving.</h2>
+            </div>
+            <Link className="text-link" to="/menu">
+              Explore all categories <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <div className="food-grid">
+            {featuredFoods.map((food) => (
+              <Link className="food-card" key={food.id} to={`/food/${food.id}`}>
+                <div className="food-card-image">
+                  <img
+                    alt={food.imageAlt}
+                    decoding="async"
+                    height="750"
+                    loading="lazy"
+                    src={food.image}
+                    width="1000"
+                  />
+                  <span className="food-category">{food.category}</span>
+                </div>
+                <div className="food-card-copy">
+                  <div className="food-card-title">
+                    <h3>{food.name}</h3>
+                    <span>PKR {food.price.toLocaleString('en-PK')}</span>
+                  </div>
+                  <p>{food.description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

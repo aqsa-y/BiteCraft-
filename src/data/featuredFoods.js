@@ -1,0 +1,58 @@
+const featuredFoods = [
+  {
+    id: 'smash-burger',
+    name: 'House Smash Burger',
+    category: 'Burgers',
+    description: 'Smashed beef, melted cheddar, crisp lettuce, and house sauce.',
+    price: 1190,
+    image: '/images/smash-burger.jpg',
+    imageAlt: 'Juicy cheeseburger topped with fresh lettuce on a toasted bun',
+  },
+  {
+    id: 'pepperoni-pizza',
+    name: 'Pepperoni Pizza',
+    category: 'Pizzas',
+    description: 'Stone-baked crust, rich tomato sauce, mozzarella, and pepperoni.',
+    price: 1590,
+    image: '/images/pepperoni-pizza.jpg',
+    imageAlt: 'Freshly baked pepperoni pizza topped with melted cheese',
+  },
+  {
+    id: 'chicken-tikka-wrap',
+    name: 'Chicken Tikka Wrap',
+    category: 'Wraps',
+    description: 'Spiced grilled chicken, crunchy salad, and creamy mint sauce.',
+    price: 790,
+    image: '/images/chicken-wrap.jpg',
+    imageAlt: 'Grilled chicken and fresh vegetables wrapped in flatbread',
+  },
+  {
+    id: 'loaded-fries',
+    name: 'Loaded Fries',
+    category: 'Sides',
+    description: 'Golden, crispy fries finished with parmesan and fresh herbs.',
+    price: 520,
+    image: '/images/loaded-fries.jpg',
+    imageAlt: 'Golden crispy fries topped with finely grated parmesan and herbs',
+  },
+  {
+    id: 'citrus-cooler',
+    name: 'Citrus Cooler',
+    category: 'Drinks',
+    description: 'A chilled, bright orange cooler for a refreshing pick-me-up.',
+    price: 350,
+    image: '/images/citrus-cooler.jpg',
+    imageAlt: 'Cold orange citrus drink served with a fresh lemon slice',
+  },
+  {
+    id: 'student-meal-deal',
+    name: 'Student Meal Deal',
+    category: 'Meal Deals',
+    description: 'A classic burger and fries combo made for a proper study break.',
+    price: 1350,
+    image: '/images/student-combo.jpg',
+    imageAlt: 'A classic burger served with a side of golden french fries',
+  },
+]
+
+export default featuredFoods

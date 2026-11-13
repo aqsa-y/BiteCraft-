@@ -132,151 +132,65 @@
 
 .hero-art {
   position: relative;
-  min-height: 410px;
+  min-height: 430px;
   overflow: hidden;
-  display: grid;
-  place-items: center;
   border-radius: 28px;
-  background: #f7e9d8;
+  background: #473226;
 }
 
-.hero-art::before,
-.hero-art::after {
+.hero-image,
+.hero-image-shade {
   position: absolute;
-  content: '';
-  border: 1px solid rgb(203 78 50 / 12%);
-  border-radius: 50%;
-}
-
-.hero-art::before {
-  width: 390px;
-  height: 390px;
-}
-
-.hero-art::after {
-  width: 310px;
-  height: 310px;
-}
-
-.art-sun {
-  position: absolute;
-  top: 48px;
-  right: 56px;
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
-  background: #f3c669;
-  opacity: 0.8;
-}
-
-.burger-illustration {
-  position: relative;
-  z-index: 1;
-  width: min(68%, 310px);
-  height: 210px;
-  margin-top: 24px;
-  filter: drop-shadow(0 22px 16px rgb(93 48 22 / 18%));
-  transform: rotate(-7deg);
-}
-
-.burger-illustration span {
-  position: absolute;
-  left: 0;
-  display: block;
+  inset: 0;
   width: 100%;
+  height: 100%;
 }
 
-.burger-top {
-  top: 0;
-  height: 94px;
-  border: 4px solid #bd692f;
-  border-radius: 155px 155px 34px 34px;
-  background: linear-gradient(160deg, #f8c679, #e59742);
-  box-shadow: inset 0 -8px 0 rgb(145 68 27 / 13%);
+.hero-image {
+  object-fit: cover;
+  object-position: center;
 }
 
-.sesame {
-  position: absolute;
-  width: 7px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff1ce;
-  transform: rotate(38deg);
-}
-
-.sesame-one { top: 24px; left: 27%; }
-.sesame-two { top: 40px; left: 44%; }
-.sesame-three { top: 20px; left: 57%; }
-.sesame-four { top: 50px; left: 68%; }
-.sesame-five { top: 30px; left: 80%; }
-
-.burger-lettuce {
-  top: 91px;
-  height: 22px;
-  border-radius: 9px;
-  background: #6f9c4b;
-  clip-path: polygon(0 20%, 11% 0, 20% 35%, 32% 5%, 44% 34%, 57% 0, 69% 34%, 82% 1%, 100% 24%, 98% 100%, 0 100%);
-}
-
-.burger-cheese {
-  top: 105px;
-  height: 24px;
-  border-radius: 7px;
-  background: #f4c444;
-  clip-path: polygon(0 0, 100% 0, 100% 65%, 81% 100%, 60% 65%, 40% 100%, 20% 65%, 0 100%);
-}
-
-.burger-patty {
-  top: 120px;
-  height: 42px;
-  border: 3px solid #703c29;
-  border-radius: 15px;
-  background: linear-gradient(180deg, #9d5a39, #77422f);
-  box-shadow: inset 0 7px 0 rgb(255 255 255 / 8%);
-}
-
-.burger-bottom {
-  top: 157px;
-  height: 48px;
-  border: 4px solid #bd692f;
-  border-radius: 15px 15px 55px 55px;
-  background: linear-gradient(180deg, #f2b45f, #df8d3c);
+.hero-image-shade {
+  background: linear-gradient(180deg, rgb(26 18 12 / 5%) 35%, rgb(26 18 12 / 68%) 100%);
 }
 
 .art-caption {
   position: absolute;
-  z-index: 2;
-  top: 34px;
-  left: 36px;
+  z-index: 1;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
   display: grid;
-  gap: 7px;
+  gap: 8px;
 }
 
 .art-caption span {
-  color: #9c6845;
-  font-size: 0.58rem;
+  color: #f7d8a1;
+  font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.14em;
 }
 
 .art-caption strong {
-  color: #49382c;
+  color: white;
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: -0.04em;
 }
 
 .art-sticker {
   position: absolute;
-  z-index: 2;
-  right: 34px;
-  bottom: 40px;
-  width: 91px;
-  height: 91px;
+  z-index: 1;
+  top: 24px;
+  right: 24px;
+  width: 76px;
+  height: 76px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border: 5px solid #fff9eb;
+  border: 4px solid rgb(255 255 255 / 80%);
   border-radius: 50%;
   background: var(--color-primary);
   color: white;
@@ -291,8 +205,119 @@
 
 .art-sticker strong {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   letter-spacing: -0.06em;
+}
+
+.popular-section {
+  padding: 66px 0 74px;
+}
+
+.popular-heading {
+  margin-bottom: 27px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.popular-heading h2 {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.1vw, 2.45rem);
+  letter-spacing: -0.065em;
+  line-height: 1.15;
+}
+
+.popular-heading .text-link {
+  flex: 0 0 auto;
+  margin: 0 0 5px;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.food-card {
+  min-width: 0;
+  overflow: hidden;
+  display: block;
+  border: 1px solid var(--color-border);
+  border-radius: 17px;
+  background: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.food-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgb(37 35 31 / 9%);
+}
+
+.food-card-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #f4ede3;
+}
+
+.food-card-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.food-card:hover .food-card-image img {
+  transform: scale(1.035);
+}
+
+.food-category {
+  position: absolute;
+  left: 13px;
+  bottom: 13px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgb(255 253 248 / 94%);
+  color: var(--color-ink);
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.food-card-copy {
+  padding: 16px 17px 18px;
+}
+
+.food-card-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.food-card-title h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: -0.035em;
+}
+
+.food-card-title > span {
+  flex: 0 0 auto;
+  color: var(--color-primary);
+  font-size: 0.81rem;
+  font-weight: 800;
+}
+
+.food-card-copy p {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  font-size: 0.83rem;
+  line-height: 1.6;
 }
 
 .home-highlights {
@@ -400,6 +425,60 @@
   text-decoration: none;
 }
 
+.food-detail-page {
+  min-height: 530px;
+  padding-top: 48px;
+  padding-bottom: 82px;
+}
+
+.food-detail-page > .text-link {
+  margin: 0 0 28px;
+}
+
+.food-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 54px;
+}
+
+.food-detail-image {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 22px;
+  background: #f4ede3;
+}
+
+.food-detail-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.food-detail-copy h1 {
+  margin: 18px 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  letter-spacing: -0.07em;
+  line-height: 1.08;
+}
+
+.food-detail-copy p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.food-detail-copy > strong {
+  margin-top: 22px;
+  display: block;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
 .empty-state {
   max-width: 560px;
   margin-top: 38px;
@@ -449,11 +528,6 @@
     min-height: 350px;
   }
 
-  .burger-illustration {
-    width: 72%;
-    transform: scale(0.82) rotate(-7deg);
-  }
-
   .highlights-inner {
     gap: 25px;
   }
@@ -479,6 +553,35 @@
     min-height: 345px;
   }
 
+  .popular-section {
+    padding: 48px 0 54px;
+  }
+
+  .popular-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .food-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+
+  .food-card-copy {
+    padding: 13px;
+  }
+
+  .food-card-title {
+    align-items: start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .food-card-title h3 {
+    font-size: 0.92rem;
+  }
+
   .highlights-inner {
     padding-top: 30px;
     padding-bottom: 32px;
@@ -490,6 +593,20 @@
     min-height: 480px;
     padding-top: 58px;
     padding-bottom: 68px;
+  }
+
+  .food-detail-page {
+    padding-top: 32px;
+    padding-bottom: 58px;
+  }
+
+  .food-detail {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .food-detail-image {
+    border-radius: 17px;
   }
 
   .empty-state {
@@ -511,14 +628,24 @@
   }
 
   .art-sticker {
+    top: 18px;
     right: 18px;
-    bottom: 25px;
-    width: 77px;
-    height: 77px;
+    width: 68px;
+    height: 68px;
   }
 
-  .burger-illustration {
-    transform: scale(0.74) rotate(-7deg);
+  .art-caption {
+    right: 20px;
+    bottom: 22px;
+    left: 20px;
+  }
+
+  .art-caption span {
+    font-size: 0.57rem;
+  }
+
+  .food-grid {
+    grid-template-columns: 1fr;
   }
 }
 

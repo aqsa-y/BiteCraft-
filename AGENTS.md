@@ -7,6 +7,7 @@ This repository is a lightweight Vite + React app.
 - Start locally: `npm run dev`
 - Build: `npm run build`
 - Lint: `npm run lint`
+- Test: `npm test`
 
 ## Coding expectations
 - Keep changes surgical and consistent with the existing app structure.
@@ -14,6 +15,12 @@ This repository is a lightweight Vite + React app.
 - Keep styling in the existing CSS files unless a new file is clearly warranted.
 - Preserve accessibility and responsive behavior.
 - Avoid adding unnecessary dependencies or large refactors.
+
+## Food photography
+- Store food photos locally under `public/images`; do not rely on remote image URLs at runtime.
+- Give every food record a matching local image path and meaningful `imageAlt` text.
+- Keep food photos at a consistent 4:3 aspect ratio and use `object-fit: cover`.
+- Record photo sources in `src/data/IMAGE_SOURCES.md` and verify images load in the production preview.
 
 ## Project layout
 - `src/main.jsx` bootstraps the app.

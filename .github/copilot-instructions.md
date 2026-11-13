@@ -29,12 +29,19 @@ This repository is a small Vite + React application. Keep changes focused, produ
 - Add accessible labels, alt text, and semantic markup for UI improvements.
 - If updating a component, keep the surrounding component structure intact and minimize churn.
 
+## Food photography
+- Store food images locally under `public/images`; do not use remote image URLs at runtime.
+- Every food record must have a matching local image path and meaningful alt text.
+- Keep food images at a consistent 4:3 aspect ratio and render them with `object-fit: cover`.
+- Record image sources in `src/data/IMAGE_SOURCES.md` and verify images in the production preview.
+
 ## Validation
 - Before finishing, run the smallest relevant validation command.
 - Typical commands for this app:
   - `npm install` (when dependencies are not yet installed)
   - `npm run build`
   - `npm run lint`
+  - `npm test`
 - If a task includes UI work, prefer a quick visual sanity check in the browser after running the app with `npm run dev`.
 
 ## Change expectations
