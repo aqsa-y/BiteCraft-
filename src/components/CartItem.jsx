@@ -1,11 +1,12 @@
 import { useCart } from '../context/useCart.js'
+import ResilientImage from './ResilientImage.jsx'
 
 function CartItem({ food, quantity }) {
   const { increaseQuantity, decreaseQuantity, removeFromCart } = useCart()
 
   return (
     <article className="cart-item">
-      <img alt={food.imageAlt} src={food.image} />
+      <ResilientImage alt={food.imageAlt} src={food.image} />
       <div className="cart-item-copy">
         <span>{food.category}</span>
         <h2>{food.name}</h2>

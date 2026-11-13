@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff8ee"/>
+      <stop offset="1" stop-color="#f6dfc9"/>
+    </linearGradient>
+    <linearGradient id="bun" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#eaa95b"/>
+      <stop offset="1" stop-color="#c97937"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="18"/>
+      <feOffset dy="18"/>
+      <feComponentTransfer>
+        <feFuncA slope=".22" type="linear"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#background)"/>
+  <circle cx="600" cy="420" r="290" fill="#fffdf8" opacity=".8"/>
+  <circle cx="600" cy="420" r="242" fill="none" stroke="#e9c9a8" stroke-width="8"/>
+  <g filter="url(#shadow)" transform="translate(0 10)">
+    <path d="M385 430c10-120 94-194 215-194s205 74 215 194H385Z" fill="url(#bun)"/>
+    <g fill="#fff0c8">
+      <ellipse cx="505" cy="307" rx="8" ry="15" transform="rotate(-35 505 307)"/>
+      <ellipse cx="566" cy="277" rx="8" ry="15" transform="rotate(-18 566 277)"/>
+      <ellipse cx="632" cy="280" rx="8" ry="15" transform="rotate(18 632 280)"/>
+      <ellipse cx="690" cy="310" rx="8" ry="15" transform="rotate(35 690 310)"/>
+    </g>
+    <path d="m385 438 70-32 58 22 70-24 68 26 73-25 91 33-22 46H407l-22-46Z" fill="#6d9a51"/>
+    <path d="M405 474h390l-28 48H433l-28-48Z" fill="#f1bf45"/>
+    <path d="M424 516c28-33 62 25 95-2s63 25 95-2 64 25 96-2 64 25 96-2l18 57H442l-18-49Z" fill="#6b3b2b"/>
+    <path d="M432 568h336c-18 83-77 126-168 126s-150-43-168-126Z" fill="url(#bun)"/>
+  </g>
+  <text x="600" y="790" fill="#5a382b" font-family="Arial, sans-serif" font-size="32" font-weight="700" text-anchor="middle" letter-spacing="3">BITECRAFT</text>
+  <text x="600" y="832" fill="#76675c" font-family="Arial, sans-serif" font-size="22" text-anchor="middle">Food image temporarily unavailable</text>
+</svg>

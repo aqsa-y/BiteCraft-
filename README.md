@@ -34,12 +34,12 @@ The application uses local restaurant data. It has no backend, external menu API
 - Home page with restaurant information, food categories, popular items, and a location link.
 - Responsive menu with case-insensitive singular/plural search, category filters, and sorting.
 - Asynchronous mock menu loading, with loading, error, retry, and empty-data states. To demonstrate the controlled states, open `/menu?simulateFailure=1` or `/menu?emptyMenu=1`; retry returns to the normal local menu.
-- Food detail pages with local photos, descriptions, portion sizes, availability, and quantity controls.
+- Food detail pages with local photos, a shared image fallback, descriptions, portion sizes, availability, and quantity controls.
 - Cart shared through React Context and persisted in `localStorage`.
 - Checkout form validation for Pakistani mobile numbers, delivery/pickup selection, and delivery addresses.
 - Availability enforcement and delivery pricing: PKR 150 below a PKR 2,000 subtotal, free delivery at or above PKR 2,000, and free pickup.
 
-Menu photos are stored in `public/images`; their source notes are in [`src/data/IMAGE_SOURCES.md`](./src/data/IMAGE_SOURCES.md).
+Menu photos and the shared fallback image are stored in `public/images`; photo source notes are in [`src/data/IMAGE_SOURCES.md`](./src/data/IMAGE_SOURCES.md).
 
 ## Project structure
 

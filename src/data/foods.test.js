@@ -44,3 +44,13 @@ test('every food record is complete and has a local JPEG image', () => {
     assert.deepEqual(image.subarray(0, 3), Buffer.from([0xff, 0xd8, 0xff]))
   }
 })
+
+test('the shared fallback image is present as a local SVG asset', () => {
+  const fallbackPath = fileURLToPath(
+    new URL('../../public/images/food-fallback.svg', import.meta.url),
+  )
+  const fallback = readFileSync(fallbackPath, 'utf8')
+
+  assert.match(fallback, /<svg\b/)
+  assert.match(fallback, /Food image temporarily unavailable/)
+})

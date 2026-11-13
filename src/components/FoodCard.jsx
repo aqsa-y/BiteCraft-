@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
+import ResilientImage from './ResilientImage.jsx'
 import './FoodCard.css'
 
 function FoodCard({ food }) {
   return (
     <article className="food-card">
       <div className="food-card-image">
-        <img
+        <ResilientImage
           alt={food.imageAlt}
           decoding="async"
           height="750"

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import ResilientImage from '../components/ResilientImage.jsx'
 import { useCart } from '../context/useCart.js'
 import foods from '../data/foods.js'
 
@@ -41,7 +42,7 @@ function FoodDetails() {
         </Link>
         <div className="food-detail">
           <div className="food-detail-image">
-            <img
+            <ResilientImage
               alt={food.imageAlt}
               decoding="async"
               height="750"

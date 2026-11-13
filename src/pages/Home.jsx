@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import FoodCard from '../components/FoodCard.jsx'
+import ResilientImage from '../components/ResilientImage.jsx'
 import foods from '../data/foods.js'
 import restaurant from '../data/restaurant.js'
 
@@ -38,7 +39,7 @@ function Home() {
           </ul>
         </div>
         <div className="hero-art">
-          <img
+          <ResilientImage
             alt="Double cheeseburger layered with melted cheese, tomato, and crisp lettuce"
             className="hero-image"
             decoding="async"
@@ -93,7 +94,7 @@ function Home() {
               key={name}
               to={`/menu?category=${encodeURIComponent(name)}`}
             >
-              <img alt={food.imageAlt} decoding="async" loading="lazy" src={food.image} />
+              <ResilientImage alt={food.imageAlt} decoding="async" loading="lazy" src={food.image} />
               <span className="category-card-shade" />
               <span className="category-card-copy">
                 <span>Explore</span>

@@ -37,7 +37,7 @@ The lightweight word-stemming rules cover common endings rather than every irreg
 The investigation reported that some Spice Bazaar food items were missing pictures.
 
 **Decision**
-Use item-matched local photographs and meaningful alt text for catalog items. A consistent fallback image is the desired behavior if an image cannot be loaded.
+Use item-matched local photographs and meaningful alt text for catalog items. If an image cannot be loaded, show the shared local BiteCraft fallback image and update its alt text to identify the missing photo.
 
 **Alternative considered**
 Use remote image URLs at runtime, show one generic image for every product, or leave unavailable images blank.
@@ -46,20 +46,22 @@ Use remote image URLs at runtime, show one generic image for every product, or l
 Local, item-specific images avoid runtime dependence on image hosts and let customers distinguish products visually. Descriptive alt text provides an accessible alternative.
 
 **Trade-off**
-Bundled image files add static assets to the deployment. The current app does not yet include a runtime `onError` fallback handler; instead, the committed catalog images are checked by a test. A missing or renamed image after that check could still render as a broken image, so fallback handling remains a follow-up.
+Bundled image files add static assets to the deployment. The fallback is an illustration rather than a photograph of the specific product, so it is only shown when that product's image fails and should be replaced by the correct photo when available.
 
 **Code location**
 
 - [`src/data/foods.js`](./src/data/foods.js) maps products to local image paths and alt text.
-- [`public/images/`](./public/images) contains the checked-in JPEG files.
-- [`src/components/FoodCard.jsx`](./src/components/FoodCard.jsx) and [`src/pages/FoodDetails.jsx`](./src/pages/FoodDetails.jsx) render those images and alt text.
+- [`public/images/`](./public/images) contains the checked-in JPEG files and [`food-fallback.svg`](./public/images/food-fallback.svg).
+- [`src/components/ResilientImage.jsx`](./src/components/ResilientImage.jsx) switches to the shared fallback after an image error and changes the alt text.
+- [`src/components/FoodCard.jsx`](./src/components/FoodCard.jsx), [`src/pages/FoodDetails.jsx`](./src/pages/FoodDetails.jsx), [`src/pages/Home.jsx`](./src/pages/Home.jsx), and [`src/components/CartItem.jsx`](./src/components/CartItem.jsx) use the shared image component.
 - [`src/data/foods.test.js`](./src/data/foods.test.js) verifies each catalog image path is local and points to a JPEG file.
 - [`src/data/IMAGE_SOURCES.md`](./src/data/IMAGE_SOURCES.md) records image sources.
 
 **Evidence**
 
 - User-provided investigation observation: some Spice Bazaar items lack pictures.
-- The catalog test verifies all 12 current food records have local image files with JPEG headers.
+- The catalog test verifies all 12 current food records have local image files with JPEG headers and verifies that the shared local fallback SVG exists.
+- The shared image component handles image load errors without contacting an external image service.
 - No screenshot of the Spice Bazaar image issue was provided.
 
 ## 3. Spice Bazaar portion sizes: show portions while browsing
