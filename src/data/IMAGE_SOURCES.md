@@ -13,3 +13,8 @@ from `public/images`; it does not request these source URLs at runtime.
 | `loaded-fries.jpg` | [photo-1573080496219-bb080dd4f877](https://images.unsplash.com/photo-1573080496219-bb080dd4f877) |
 | `citrus-cooler.jpg` | [photo-1600271886742-f049cd451bba](https://images.unsplash.com/photo-1600271886742-f049cd451bba) |
 | `student-combo.jpg` | [photo-1551782450-a2132b4ba21d](https://images.unsplash.com/photo-1551782450-a2132b4ba21d) |
+| `crispy-chicken-burger.jpg` | [photo-1606755962773-d324e0a13086](https://images.unsplash.com/photo-1606755962773-d324e0a13086) |
+| `bbq-chicken-pizza.jpg` | [photo-1565299624946-b28f40a0ae38](https://images.unsplash.com/photo-1565299624946-b28f40a0ae38) |
+| `classic-fries.jpg` | [photo-1630384060421-cb20d0e0649d](https://images.unsplash.com/photo-1630384060421-cb20d0e0649d) |
+| `citrus-mocktail.jpg` | [photo-1544145945-f90425340c7e](https://images.unsplash.com/photo-1544145945-f90425340c7e) |
+| `campus-combo.jpg` | [photo-1594212699903-ec8a3eca50f5](https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5) |

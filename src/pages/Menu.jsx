@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
+import FoodCard from '../components/FoodCard.jsx'
+import foods from '../data/foods.js'
 import restaurant from '../data/restaurant.js'
 
 function Menu() {
   return (
-    <section className="page-container simple-page">
+    <section className="page-container menu-page">
       <span className="eyebrow"><span className="eyebrow-dot" />The good stuff</span>
-      <h1>Our menu</h1>
+      <h1 id="menu-heading">Our menu</h1>
       <p className="page-lead">
         Find something for every craving, from a quick campus lunch to a proper
         meal deal. Browse our {restaurant.categories.join(', ').toLowerCase()}.
@@ -18,11 +20,13 @@ function Menu() {
           </span>
         ))}
       </div>
-      <div className="route-note">
-        <span className="route-note-mark" aria-hidden="true">✦</span>
-        <p>Our full menu and ordering options are coming together. Check back soon.</p>
+      <p className="menu-result-count">Showing all {foods.length} BiteCraft favourites</p>
+      <div aria-labelledby="menu-heading" className="food-grid">
+        {foods.map((food) => (
+          <FoodCard food={food} key={food.id} />
+        ))}
       </div>
-      <Link className="text-link" to="/food">See food details <span aria-hidden="true">→</span></Link>
+      <Link className="text-link" to="/cart">View your cart <span aria-hidden="true">→</span></Link>
     </section>
   )
 }

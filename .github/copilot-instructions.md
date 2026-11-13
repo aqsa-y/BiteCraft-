@@ -7,6 +7,8 @@ This repository is a small Vite + React application. Keep changes focused, produ
 - Root UI: `src/App.jsx`
 - Global styles: `src/index.css`
 - Component styles: `src/App.css`
+- Food catalog: `src/data/foods.js`
+- Reusable food card: `src/components/FoodCard.jsx`
 - Build system: Vite
 - UI library: React 19
 

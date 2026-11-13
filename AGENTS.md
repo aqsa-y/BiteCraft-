@@ -27,6 +27,8 @@ This repository is a lightweight Vite + React app.
 - `src/App.jsx` contains the root UI.
 - `src/App.css` holds component-specific styles.
 - `src/index.css` contains global/base styles.
+- `src/data/foods.js` is the canonical local food catalog.
+- `src/components/FoodCard.jsx` renders reusable food cards.
 
 ## Before finishing
 - Run the smallest relevant validation command, typically `npm run build` and/or `npm run lint`.

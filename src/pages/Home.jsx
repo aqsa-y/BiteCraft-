@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import featuredFoods from '../data/featuredFoods.js'
+import FoodCard from '../components/FoodCard.jsx'
+import foods from '../data/foods.js'
 import restaurant from '../data/restaurant.js'
 
 function Home() {
@@ -65,27 +66,8 @@ function Home() {
             </Link>
           </div>
           <div className="food-grid">
-            {featuredFoods.map((food) => (
-              <Link className="food-card" key={food.id} to={`/food/${food.id}`}>
-                <div className="food-card-image">
-                  <img
-                    alt={food.imageAlt}
-                    decoding="async"
-                    height="750"
-                    loading="lazy"
-                    src={food.image}
-                    width="1000"
-                  />
-                  <span className="food-category">{food.category}</span>
-                </div>
-                <div className="food-card-copy">
-                  <div className="food-card-title">
-                    <h3>{food.name}</h3>
-                    <span>PKR {food.price.toLocaleString('en-PK')}</span>
-                  </div>
-                  <p>{food.description}</p>
-                </div>
-              </Link>
+            {foods.filter((food) => food.featured).map((food) => (
+              <FoodCard food={food} key={food.id} />
             ))}
           </div>
         </div>
